@@ -1,0 +1,51 @@
+<div id="container">
+  <div *ngIf="automatic">
+    <div class="card border-primary mb-3" style="max-width: 20rem;
+  display: inline-block; margin-right: 1.5%; margin-left: 1.5%; height: 180px;">
+    <div class="card-header">Turn on automatic mode</div>
+    <div class="card-body">
+      <input type="button" class="btn btn-primary btn-lg" (ngModelChange)="automaticChange($event)" (click)="(turnOnSystem())" value="Turn on automatic">
+      <br>
+    </div>
+    </div>
+  </div>
+
+  <div *ngIf="manual">
+    <div class="card border-primary mb-3" style="max-width: 20rem;
+  display: inline-block; margin-right: 1.5%; margin-left: 1.5%; height: 180px;">
+    <div class="card-header">Turn on manual mode</div>
+    <div class="card-body">
+      <input type="button" class="btn btn-primary btn-lg" (ngModelChange)="manualChange($event)" (click)="(turnOnSystem())" value="Turn on manual">
+      <br>
+    </div>
+    </div>
+  </div>
+
+  <div class="card border-primary mb-3" style="max-width: 20rem;
+  display: inline-block; margin-right: 1.5%; margin-left: 1.5%; height: 180px;">
+    <div class="card-header">Feed fishes</div>
+    <div class="card-body">
+      <input type="button" class="btn btn-primary" (click)="(feedFishes())" value="Feed fishes">
+      <br>
+    </div>
+  </div>
+
+  <div class="card border-primary mb-3" style="max-width: 20rem;
+  display: inline-block; margin-right: 1.5%; margin-left: 1.5%; height: 180px;">
+    <div class="card-header">Filter water</div>
+    <div class="card-body">
+      <input type="button" class="btn btn-primary" (click)="(filterWatter())" value="Filter water">
+      <br>
+    </div>
+  </div>
+
+  <div class="card border-primary mb-3" style="max-width: 20rem;
+  display: inline-block; margin-right: 1.5%; margin-left: 1.5%; height: 180px;">
+    <div class="card-header">Water heating</div>
+    <div class="card-body">
+      <input type="button" class="btn btn-primary" (click)="(heatWatter())" value="Heat water"> &nbsp; &nbsp;
+      <input type="button" class="btn btn-primary" (click)="(stopHeating())" value="Stop heating">
+      <br>
+    </div>
+  </div>
+</div>
