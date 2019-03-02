@@ -1,22 +1,11 @@
 <div id="container">
-  <div *ngIf="automatic">
-    <div class="card border-primary mb-3" style="width: 200px; height: 180px; float:left; margin-right:1.5%">
-    <div class="card-header">Turn on automatic mode</div>
-    <div class="card-body">
-      <input type="button" class="btn btn-primary btn-lg" (click)="(turnModeAuto())" value="Turn on automatic">
-      <br>
-    </div>
-    </div>
+  <div class="card border-primary mb-3" style="width: 300px; height: 200px; float:left; margin-right:1.5%">
+  <div class="card-header">Switch mode</div>
+  <div class="card-body">
+    <input type="button" class="btn btn-primary btn-lg" (click)="(turnModeAuto())" value="Turn on automatic"><br><br>
+    <input type="button" class="btn btn-primary btn-lg" (click)="(turnOnManual())" value=" Turn on manual  ">
+    <br>
   </div>
-
-  <div *ngIf="!automatic">
-    <div class="card border-primary mb-3" style="width: 200px; height: 180px; float:left; margin-right:1.5%">
-    <div class="card-header">Turn on manual mode</div>
-    <div class="card-body">
-      <input type="button" class="btn btn-primary btn-lg" (click)="(turnOnManual())" value="Turn on manual">
-      <br>
-    </div>
-    </div>
   </div>
 
   <div class="card border-primary mb-3" style="width: 200px; height: 180px; float:left; margin-right:1.5%">
@@ -50,7 +39,7 @@
   <div class="card border-primary mb-3" style="width: 300px; height: 180px; float:left; margin-right:1.5%">
     <div class="card-header">Water heating</div>
     <div class="card-body">
-      <input type="text" placeholder="Temperature" [ngModel]="temperature"><br><br>
+      <input type="text" placeholder="Temperature" (ngModelChange)="temp($event)" [ngModel]="temperature"><br><br>
       <input type="button" class="btn btn-primary" (click)="(heating())" value="Heat water">
       <br>
     </div>
@@ -59,12 +48,12 @@
   <div class="card border-primary mb-3" style="width: 300px; height: 180px; float:left; margin-right:1.5%">
     <div class="card-header">Water plants</div>
     <div class="card-body">
-      <input type="text" placeholder="Minutes to water" [ngModel]="minutes"><br><br>
+      <input type="text" placeholder="Minutes to water" (ngModelChange)="min($event)" [ngModel]="minutes"><br><br>
       <input type="button" class="btn btn-primary" (click)="(waterPlants())" value="Water plants">
       <br>
     </div>
   </div>
 
   <br><br><br><br><br><br><br><br><br>
-  <textarea cols="50" rows="15" placeholder="Status..." readonly></textarea>
+  <textarea cols="50" rows="15" placeholder="Status..." [ngModel]="status" readonly></textarea>
 </div>

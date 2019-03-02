@@ -12,6 +12,7 @@ export class RemoteControllerComponent implements OnInit {
   filter: boolean;
   temperature: string;
   minutes: string;
+  status: string;
 
   constructor(private remoteService: RemoteService) {
    }
@@ -21,23 +22,28 @@ export class RemoteControllerComponent implements OnInit {
     this.filter = false;
     this.temperature = '';
     this.minutes = '';
-  }
-
-  automaticChange($event) {
-    console.log($event);
-    this.automatic = $event;
+    this.status = '';
   }
 
   filterChange($event) {
     this.filter = $event;
   }
 
+  temp($event) {
+    this.temperature = $event;
+  }
+
+  min($event) {
+    this.minutes = $event;
+  }
+
   turnModeAuto() {
     this.remoteService.turnAutomatic().subscribe(
       result => {
         console.log(result);
-        alert('Automatic mode is on.');
         this.automatic = true;
+        this.status = result;
+        console.log(this.automatic);
       },
       error => {
         alert(error.message);
@@ -48,8 +54,9 @@ export class RemoteControllerComponent implements OnInit {
     this.remoteService.turnOff().subscribe(
       result => {
         console.log(result);
-        alert('Manual mode is on.');
         this.automatic = false;
+        this.status = result;
+        console.log(this.automatic);
       },
       error => {
         alert(error.message);
@@ -60,7 +67,7 @@ export class RemoteControllerComponent implements OnInit {
     this.remoteService.feedFish().subscribe(
       result => {
         console.log(result);
-        alert('Fish feeding');
+        this.status = result;
       },
       error => {
         alert(error.message);
@@ -71,8 +78,8 @@ export class RemoteControllerComponent implements OnInit {
     this.remoteService.filterOn().subscribe(
       result => {
         console.log(result);
-        alert('Filter is on.');
         this.filter = true;
+        this.status = result;
       },
       error => {
         alert(error.message);
@@ -83,8 +90,8 @@ export class RemoteControllerComponent implements OnInit {
     this.remoteService.filterOff().subscribe(
       result => {
         console.log(result);
-        alert('Filter is off.');
         this.filter = false;
+        this.status = result;
       },
       error => {
         alert(error.message);
@@ -92,11 +99,12 @@ export class RemoteControllerComponent implements OnInit {
   }
 
   heating() {
+    console.log(this.temperature);
     if (this.temperature !== null && this.temperature !== '') {
       this.remoteService.fishTemperature(this.temperature).subscribe(
         result => {
           console.log(result);
-          alert('Heating.');
+          this.status = result;
         },
         error => {
           alert(error.message);
@@ -105,10 +113,11 @@ export class RemoteControllerComponent implements OnInit {
   }
 
   waterPlants() {
+    console.log(this.minutes);
     this.remoteService.waterPlants(this.minutes).subscribe(
       result => {
         console.log(result);
-        alert('Watering is on.');
+        this.status = result;
       },
       error => {
         alert(error.message);
