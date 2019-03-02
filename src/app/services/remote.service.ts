@@ -12,29 +12,50 @@ export class RemoteService {
 
   constructor(private http: HttpClient) { }
 
-  turnMode(data: string): any {
-    return this.http.get('api/turn_on', {headers: this.headers}).pipe(catchError( err => {
+  turnAutomatic(): any {
+    return this.http.get('api/controller/turn_on', {headers: this.headers}).pipe(catchError( err => {
       console.log(err);
       return throwError(err);
     }));
   }
 
-  turnOff(data: string) {
-    return this.http.get('api/turn_off', {headers: this.headers}).pipe(catchError( err => {
+  turnOff(): any {
+    return this.http.get('api/controller/turn_off', {headers: this.headers}).pipe(catchError( err => {
       console.log(err);
       return throwError(err);
     }));
   }
 
-  feedFish(data: string) {
-    return this.http.get('api/fish_food', {headers: this.headers}).pipe(catchError( err => {
+  feedFish(): any {
+    return this.http.get('api/controller/fish_food', {headers: this.headers}).pipe(catchError( err => {
       console.log(err);
       return throwError(err);
     }));
   }
 
-  fishTemperature(data: string) {
-    return this.http.get('api/fish_food', {headers: this.headers}).pipe(catchError( err => {
+  fishTemperature(data: string): any {
+    return this.http.get('api/controller/fish_temperature/' + data, {headers: this.headers}).pipe(catchError( err => {
+      console.log(err);
+      return throwError(err);
+    }));
+  }
+
+  filterOn(): any {
+    return this.http.get('api/controller/turn_on_filter', {headers: this.headers}).pipe(catchError( err => {
+      console.log(err);
+      return throwError(err);
+    }));
+  }
+
+  filterOff(): any {
+    return this.http.get('api/controller/turn_off_filter', {headers: this.headers}).pipe(catchError( err => {
+      console.log(err);
+      return throwError(err);
+    }));
+  }
+
+  waterPlants(data: string): any {
+    return this.http.get('api/controller/plants_water/' + data, {headers: this.headers}).pipe(catchError( err => {
       console.log(err);
       return throwError(err);
     }));

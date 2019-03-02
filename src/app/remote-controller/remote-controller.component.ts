@@ -9,51 +9,55 @@ import { RemoteService } from '../services/remote.service';
 export class RemoteControllerComponent implements OnInit {
 
   automatic: boolean;
-  manual: boolean;
+  filter: boolean;
+  temperature: string;
+  minutes: string;
 
-  constructor(private remoteService: RemoteService) { }
+  constructor(private remoteService: RemoteService) {
+   }
 
   ngOnInit() {
     this.automatic = false;
-    this.manual = true;
+    this.filter = false;
+    this.temperature = '';
+    this.minutes = '';
   }
 
   automaticChange($event) {
+    console.log($event);
     this.automatic = $event;
   }
 
-  manualChange($event) {
-    this.manual = $event;
+  filterChange($event) {
+    this.filter = $event;
   }
 
   turnModeAuto() {
-    if (this.automatic) {
-      this.remoteService.turnMode(this.modeToJson(this.automatic)).subscribe(
-        result => {
-          console.log(result);
-          alert('Automatic mode is on.');
-        },
-        error => {
-          alert(error.message);
-        });
-    }
+    this.remoteService.turnAutomatic().subscribe(
+      result => {
+        console.log(result);
+        alert('Automatic mode is on.');
+        this.automatic = true;
+      },
+      error => {
+        alert(error.message);
+      });
   }
 
-  turnModeManual() {
-    if (this.manual) {
-      this.remoteService.turnMode(this.modeToJson(this.manual)).subscribe(
-        result => {
-          console.log(result);
-          alert('Manual mode is on.');
-        },
-        error => {
-          alert(error.message);
-        });
-    }
+  turnOnManual() {
+    this.remoteService.turnOff().subscribe(
+      result => {
+        console.log(result);
+        alert('Manual mode is on.');
+        this.automatic = false;
+      },
+      error => {
+        alert(error.message);
+      });
   }
 
   feedFishes() {
-    this.remoteService.feedFish(this.modeToJson(this.automatic)).subscribe(
+    this.remoteService.feedFish().subscribe(
       result => {
         console.log(result);
         alert('Fish feeding');
@@ -63,16 +67,52 @@ export class RemoteControllerComponent implements OnInit {
       });
   }
 
-  filterWatter() {}
+  filterOn() {
+    this.remoteService.filterOn().subscribe(
+      result => {
+        console.log(result);
+        alert('Filter is on.');
+        this.filter = true;
+      },
+      error => {
+        alert(error.message);
+      });
+  }
 
-  heatWatter() {}
+  filterOff() {
+    this.remoteService.filterOff().subscribe(
+      result => {
+        console.log(result);
+        alert('Filter is off.');
+        this.filter = false;
+      },
+      error => {
+        alert(error.message);
+      });
+  }
 
-  stopHeating() {}
+  heating() {
+    if (this.temperature !== null && this.temperature !== '') {
+      this.remoteService.fishTemperature(this.temperature).subscribe(
+        result => {
+          console.log(result);
+          alert('Heating.');
+        },
+        error => {
+          alert(error.message);
+        });
+    }
+  }
 
-  modeToJson(data: boolean) {
-    return JSON.stringify({
-      'mode': data
-    });
+  waterPlants() {
+    this.remoteService.waterPlants(this.minutes).subscribe(
+      result => {
+        console.log(result);
+        alert('Watering is on.');
+      },
+      error => {
+        alert(error.message);
+      });
   }
 
 }
